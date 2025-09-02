@@ -107,6 +107,23 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
     const search = searchParams.get('search');
+    const debug = searchParams.get('debug');
+    
+    // Si se solicita debug, mostrar información de diagnóstico
+    if (debug === 'true') {
+      const envCheck = {
+        GOOGLE_PROJECT_ID: !!process.env.GOOGLE_PROJECT_ID,
+        GOOGLE_PRIVATE_KEY_ID: !!process.env.GOOGLE_PRIVATE_KEY_ID,
+        GOOGLE_PRIVATE_KEY: !!process.env.GOOGLE_PRIVATE_KEY,
+        GOOGLE_CLIENT_EMAIL: !!process.env.GOOGLE_CLIENT_EMAIL,
+        GOOGLE_CLIENT_ID: !!process.env.GOOGLE_CLIENT_ID,
+        GOOGLE_SHEET_ID: !!process.env.GOOGLE_SHEET_ID,
+        GOOGLE_SHEET_ID_PREVIEW: process.env.GOOGLE_SHEET_ID?.substring(0, 10) + '...',
+        NODE_ENV: process.env.NODE_ENV,
+        VERCEL: process.env.VERCEL
+      };
+      return NextResponse.json({ debug: true, env_vars: envCheck, timestamp: new Date().toISOString() });
+    }
     
     const sheets = await getGoogleSheetsInstance();
     const sheetId = process.env.GOOGLE_SHEET_ID;
