@@ -1,5 +1,5 @@
 {
-  "name": "grafica-dani",
+  "name": "d-print-digital",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DavidSaboredo/Grafica-Dani.git"
+    "url": "git+https://github.com/DavidSaboredo/D-Print-Digital.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DavidSaboredo/Grafica-Dani/issues"
+    "url": "https://github.com/DavidSaboredo/D-Print-Digital/issues"
   },
-  "homepage": "https://github.com/DavidSaboredo/Grafica-Dani#readme",
+  "homepage": "https://github.com/DavidSaboredo/D-Print-Digital#readme",
   "dependencies": {
     "googleapis": "^159.0.0",
     "next": "^15.5.2",

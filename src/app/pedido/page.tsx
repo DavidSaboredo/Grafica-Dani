@@ -59,14 +59,44 @@ export default function PedidoPage() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simular envío del pedido
     try {
-      // Aquí se integraría con la API de Google Sheets o sistema de pedidos
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      // Limpiar carrito después del pedido exitoso
-      localStorage.removeItem('carrito')
-      setOrderSubmitted(true)
+      // Preparar datos del pedido para WhatsApp
+      const orderData = {
+        cliente: orderForm.nombre,
+        telefono: orderForm.telefono,
+        email: orderForm.email,
+        direccion: orderForm.direccion,
+        productos: cart.map(product => ({
+          id: product.id,
+          name: product.nombre,
+          quantity: product.cantidad || 1,
+          price: product.precio
+        })),
+        total: total,
+        notas: orderForm.notas
+      }
+
+      // Enviar pedido a la API de WhatsApp
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData)
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        // Abrir WhatsApp Web con el mensaje pre-formateado
+        window.open(result.whatsappUrl, '_blank')
+        
+        // Limpiar carrito después del pedido exitoso
+        localStorage.removeItem('carrito')
+        setOrderSubmitted(true)
+      } else {
+        throw new Error(result.error || 'Error al procesar el pedido')
+      }
     } catch (error) {
       console.error('Error al enviar pedido:', error)
       alert('Error al enviar el pedido. Por favor, inténtalo de nuevo.')
@@ -132,9 +162,9 @@ export default function PedidoPage() {
                 <path d="M22 4L12 14.01L9 11.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <h2 className="order-success-title">¡Pedido Enviado Exitosamente!</h2>
+            <h2 className="order-success-title">¡Pedido Enviado por WhatsApp!</h2>
             <p className="order-success-description">
-              Hemos recibido tu pedido correctamente. Nuestro equipo se pondrá en contacto contigo pronto para coordinar los detalles de producción y entrega.
+              Tu pedido ha sido enviado exitosamente por WhatsApp. Nuestro equipo de D-Print Digital se pondrá en contacto contigo pronto para coordinar los detalles de producción y entrega.
             </p>
             <div className="order-success-actions">
               <Link href="/" className="btn-primary">
