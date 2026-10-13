@@ -1,143 +1,37 @@
-# 🎨 D-Print Digital - Tienda Online de Productos Gráficos
+# 🎨 D-Print Digital
 
-Una moderna tienda online desarrollada con Next.js 14 que permite gestionar productos gráficos con sincronización en tiempo real desde Google Sheets.
+**Tienda online para gráficas e imprentas: tu catálogo se actualiza desde una planilla de Google Sheets y los pedidos te llegan por WhatsApp.**
 
-## ✨ Características Principales
+![Vista previa de D-Print Digital](docs/preview.jpg)
 
-- 🛒 **Carrito de Compras Inteligente**: Sistema completo con gestión de inventario en tiempo real
-- 📊 **Sincronización con Google Sheets**: Los productos se actualizan automáticamente desde una hoja de cálculo
-- 🎯 **Control de Stock**: Verificación automática de disponibilidad y prevención de sobreventa
-- 📱 **Diseño Responsivo**: Optimizado para dispositivos móviles y desktop
-- ⚡ **Rendimiento Optimizado**: Carga rápida con Next.js 14 y App Router
-- 🔄 **Actualizaciones en Tiempo Real**: Sin necesidad de recargar la página
-- 💳 **Proceso de Pedido**: Sistema completo de checkout con validación
+🔗 [Ver en vivo](https://grafica-dani.vercel.app)
 
-## 🚀 Tecnologías Utilizadas
+## ¿Qué problema resuelve?
 
-- **Frontend**: Next.js 14, React 18, TypeScript
-- **Estilos**: Tailwind CSS
-- **Base de Datos**: Google Sheets API
-- **Estado**: Context API de React
-- **Deployment**: Vercel (recomendado)
+Manejar precios y stock en una planilla y después tener que pasárselos a mano a la web (o mandar listas de precios por chat) es lento y lleno de errores. Con D-Print Digital editás tu planilla de Google Sheets como siempre y la tienda se actualiza sola: sin panel complicado y sin depender de un programador para cambiar un precio. El cliente arma su pedido y te lo envía listo por WhatsApp.
 
-## 📋 Requisitos Previos
+## Funcionalidades
 
-- Node.js 18+ 
-- npm o yarn
-- Cuenta de Google Cloud Platform
-- Google Sheets configurado
+- Catálogo de productos cargado desde Google Sheets (nombre, precio, stock, categoría e imagen).
+- Categorías y buscador de productos.
+- Carrito de compras con control de stock para no vender de más.
+- Formulario de pedido que genera un mensaje listo para enviar por WhatsApp.
+- Diseño adaptable a celular y escritorio.
 
-## 🛠️ Instalación
+## Tecnologías
 
-1. **Clonar el repositorio**
-   ```bash
-   git clone https://github.com/tu-usuario/d-print-digital.git
-cd d-print-digital
-   ```
-   2. 1.
-   Instalar dependencias
-   
-   ```
-   npm install
-   ```
-3. 2.
-   Configurar variables de entorno
-   
-   ```
-   cp .env.example .env.local
-   ```
-   Completa las variables en .env.local :
-   
-   ```
-   GOOGLE_PROJECT_ID=tu-project-id
-   GOOGLE_PRIVATE_KEY_ID=tu-private-key-id
-   GOOGLE_PRIVATE_KEY=tu-private-key
-   GOOGLE_CLIENT_EMAIL=tu-client-email
-   GOOGLE_CLIENT_ID=tu-client-id
-   GOOGLE_SHEET_ID=tu-sheet-id
-   ```
-4. 3.
-   Configurar Google Sheets
-   
-   - Crear una hoja de cálculo con las columnas: ID, Nombre, Precio, Stock, Categoría, Imagen
-   - Configurar las credenciales de la API de Google Sheets
-   - Compartir la hoja con el email del service account
-5. 4.
-   Ejecutar en desarrollo
-   
-   ```
-   npm run dev
-   ```
-   La aplicación estará disponible en http://localhost:3000
-## 📊 Configuración de Google Sheets
-La hoja de cálculo debe tener la siguiente estructura:
+Next.js, React, TypeScript, Tailwind CSS, Google Sheets API (googleapis) y desplegado en Vercel.
 
-ID Nombre Precio Stock Categoría Imagen 1 Tarjetas de Presentación 12000 75 Papelería url_imagen 2 Flyers A4 8000 50 Marketing url_imagen
+## Cómo correrlo localmente
 
-## 🚀 Deployment
-
-### Vercel (Recomendado)
-1. 1.
-   Conectar con GitHub
-   
-   - Hacer push del código a GitHub
-   - Conectar el repositorio en Vercel
-2. 2.
-   Configurar variables de entorno
-   
-   - Agregar todas las variables de .env.local en Vercel
-3. 3.
-   Deploy automático
-   
-   - Vercel desplegará automáticamente en cada push
-
-### Otras plataformas
-- Netlify : Compatible con build estático
-- Railway : Para deployment con base de datos
-- DigitalOcean : Para VPS personalizado
-
-## 📁 Estructura del Proyecto
+```bash
+npm install
+cp .env.example .env.local   # credenciales de Google, GOOGLE_SHEET_ID y WHATSAPP_NUMBER
+npm run dev
 ```
-d-print-digital/
-├── src/
-│   ├── app/
-│   │   ├── api/products/          # API de productos
-│   │   ├── carrito/               # Página del carrito
-│   │   ├── components/            # Componentes reutilizables
-│   │   ├── pedido/               # Proceso de checkout
-│   │   └── page.tsx              # Página principal
-│   └── lib/
-│       └── sheets.ts             # Configuración Google Sheets
-├── public/                       # Archivos estáticos
-├── .env.example                  # Variables de entorno ejemplo
-└── README.md
-```
-## 🔧 Scripts Disponibles
-```
-npm run dev          # Servidor de desarrollo
-npm run build        # Build de producción
-npm run start        # Servidor de producción
-npm run lint         # Linter
-```
-## 🤝 Contribuir
-1. 1.
-   Fork el proyecto
-2. 2.
-   Crear una rama para tu feature ( git checkout -b feature/AmazingFeature )
-3. 3.
-   Commit tus cambios ( git commit -m 'Add some AmazingFeature' )
-4. 4.
-   Push a la rama ( git push origin feature/AmazingFeature )
-5. 5.
-   Abrir un Pull Request
-## 📝 Licencia
-Este proyecto está bajo la Licencia MIT - ver el archivo LICENSE para más detalles.
 
-## 📞 Contacto
-- Desarrollador : David Saboredo
-- Email : laruzo_da@hotmail.com
-- Proyecto : 
-- Demo : 
+Se abre en http://localhost:3000. La hoja de cálculo debe tener las columnas: ID, Nombre, Precio, Stock, Categoría, Imagen, y estar compartida con el email de la cuenta de servicio de Google.
 
+## ¿Querés una web así para tu negocio?
 
-⭐ ¡No olvides dar una estrella al proyecto si te fue útil!
+Desarrollo webs y sistemas a medida para comercios y emprendimientos. Escribime o mirá mis otros proyectos en [github.com/DavidSaboredo](https://github.com/DavidSaboredo).

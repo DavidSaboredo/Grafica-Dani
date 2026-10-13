@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     const message = formatWhatsAppMessage(orderData)
     
     // Generar enlace de WhatsApp
-    const whatsappNumber = '543442462463' // Tu número
+    const whatsappNumber = process.env.WHATSAPP_NUMBER || '543442462463'
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
     
     return NextResponse.json({
