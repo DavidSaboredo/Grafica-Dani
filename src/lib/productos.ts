@@ -40,6 +40,8 @@ export const obtenerProductosPublicos = unstable_cache(
 
     return { productos: ordenados, categorias }
   },
-  ['productos-publicos'],
+  // La caché sobrevive a los deploys: si la semilla cambia productos que ya existen
+  // (como el paso de ilustraciones SVG a fotos), subí la versión para no mostrar datos viejos.
+  ['productos-publicos', 'v2'],
   { tags: [TAG_PRODUCTOS] }
 )
