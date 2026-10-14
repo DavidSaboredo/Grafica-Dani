@@ -34,6 +34,10 @@ export default function PedidoPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orderSubmitted, setOrderSubmitted] = useState(false)
+  const [whatsappUrl, setWhatsappUrl] = useState('')
+  const [submitError, setSubmitError] = useState('')
+  // Evita mostrar "carrito vacío" antes de leer localStorage
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     // Cargar carrito desde localStorage
@@ -46,6 +50,7 @@ export default function PedidoPage() {
       }, 0)
       setTotal(totalAmount)
     }
+    setIsLoaded(true)
   }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -59,6 +64,7 @@ export default function PedidoPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitError('')
 
     try {
       // Preparar datos del pedido para WhatsApp
@@ -89,9 +95,11 @@ export default function PedidoPage() {
       const result = await response.json()
 
       if (result.success) {
-        // Abrir WhatsApp Web con el mensaje pre-formateado
+        // Abrir WhatsApp con el mensaje pre-formateado. Algunos celulares
+        // bloquean la ventana nueva: queda el botón "Abrir WhatsApp" de respaldo.
+        setWhatsappUrl(result.whatsappUrl)
         window.open(result.whatsappUrl, '_blank')
-        
+
         // Limpiar carrito después del pedido exitoso
         localStorage.removeItem('carrito')
         setOrderSubmitted(true)
@@ -100,10 +108,23 @@ export default function PedidoPage() {
       }
     } catch (error) {
       console.error('Error al enviar pedido:', error)
-      alert('Error al enviar el pedido. Por favor, intentá de nuevo.')
+      setSubmitError('No pudimos preparar tu pedido. Revisá tu conexión e intentá de nuevo.')
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+        <section className="hero-section">
+          <div className="hero-content">
+            <h1 className="hero-title">Finalizar Pedido</h1>
+            <p className="hero-subtitle">Cargando tu pedido...</p>
+          </div>
+        </section>
+      </div>
+    )
   }
 
   if (cart.length === 0 && !orderSubmitted) {
@@ -127,7 +148,7 @@ export default function PedidoPage() {
             </div>
             <h2 className="order-empty-title">Tu carrito está vacío</h2>
             <p className="order-empty-description">
-              Agrega productos a tu carrito antes de realizar un pedido
+              Agregá productos a tu carrito antes de hacer un pedido
             </p>
             <Link href="/" className="btn-primary order-empty-button">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -149,8 +170,8 @@ export default function PedidoPage() {
         {/* Hero Section */}
         <section className="hero-section">
           <div className="hero-content">
-            <h1 className="hero-title">Pedido Completado</h1>
-            <p className="hero-subtitle">Recibimos tu pedido correctamente</p>
+            <h1 className="hero-title">Pedido Listo</h1>
+            <p className="hero-subtitle">Solo falta confirmarlo por WhatsApp</p>
           </div>
         </section>
 
@@ -163,12 +184,20 @@ export default function PedidoPage() {
                 <path d="M22 4L12 14.01L9 11.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <h2 className="order-success-title">¡Pedido Enviado por WhatsApp!</h2>
+            <h2 className="order-success-title">¡Tu pedido está listo!</h2>
             <p className="order-success-description">
-              Tu pedido se envió por WhatsApp. Nuestro equipo de D-Print Digital se va a contactar con vos pronto para coordinar los detalles de producción y entrega.
+              Abrimos WhatsApp con el detalle de tu pedido: tocá <strong>Enviar</strong> en el chat para confirmarlo. Después, el equipo de D-Print Digital se va a contactar con vos para coordinar la producción y la entrega.
             </p>
             <div className="order-success-actions">
-              <Link href="/" className="btn-primary">
+              {whatsappUrl && (
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-gradient-primary">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 11.5C21 16.19 16.97 20 12 20C10.6 20 9.27 19.7 8.09 19.15L3 20.5L4.4 16.3C3.52 14.9 3 13.26 3 11.5C3 6.81 7.03 3 12 3C16.97 3 21 6.81 21 11.5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Abrir WhatsApp
+                </a>
+              )}
+              <Link href="/" className="btn-secondary">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3 9L12 2L21 9V20C21 20.5 20.5 21 20 21H4C3.5 21 3 20.5 3 20V9Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   <polyline points="9,22 9,12 15,12 15,22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -283,6 +312,10 @@ export default function PedidoPage() {
                     placeholder="Comentarios, instrucciones especiales, preferencias de diseño..."
                   />
                 </div>
+
+                {submitError && (
+                  <p className="order-submit-error" role="alert">{submitError}</p>
+                )}
 
                 <button
                   type="submit"

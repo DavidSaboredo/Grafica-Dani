@@ -17,6 +17,8 @@ interface Product {
 export default function CarritoPage() {
   const [cart, setCart] = useState<Product[]>([])
   const [total, setTotal] = useState(0)
+  // Evita mostrar "carrito vacío" antes de leer localStorage
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     // Cargar carrito desde localStorage
@@ -26,6 +28,7 @@ export default function CarritoPage() {
       setCart(cartItems)
       calculateTotal(cartItems)
     }
+    setIsLoaded(true)
   }, [])
 
   const calculateTotal = (items: Product[]) => {
@@ -62,6 +65,19 @@ export default function CarritoPage() {
     setCart([])
     setTotal(0)
     localStorage.removeItem('carrito')
+  }
+
+  if (!isLoaded) {
+    return (
+      <div className="cart-container">
+        <section className="hero-section">
+          <div className="hero-content">
+            <h1 className="hero-title">Carrito de Compras</h1>
+            <p className="hero-subtitle">Cargando tu carrito...</p>
+          </div>
+        </section>
+      </div>
+    )
   }
 
   if (cart.length === 0) {
