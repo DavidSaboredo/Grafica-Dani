@@ -64,7 +64,7 @@ export default function FormularioProducto({ producto, categorias, fotosHabilita
     setError('')
 
     if (!fotosHabilitadas) {
-      setError('No se pueden subir fotos porque falta configurar BLOB_READ_WRITE_TOKEN en Vercel.')
+      setError('No se pueden subir fotos porque falta conectar el Blob Store al proyecto en Vercel.')
       return
     }
     if (!archivo.type.startsWith('image/')) {
@@ -130,7 +130,7 @@ export default function FormularioProducto({ producto, categorias, fotosHabilita
         <h2 className="admin-form-titulo">Foto</h2>
         {!fotosHabilitadas && (
           <p className="admin-alerta admin-alerta-aviso">
-            Las fotos están desactivadas: falta configurar <code>BLOB_READ_WRITE_TOKEN</code> en Vercel
+            Las fotos están desactivadas: falta conectar el Blob Store al proyecto en Vercel
             (Storage → Blob). Podés guardar el producto sin foto y agregarla después.
           </p>
         )}

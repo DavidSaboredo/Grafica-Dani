@@ -1,9 +1,10 @@
 import { put, del } from '@vercel/blob'
 
-// Fotos de productos en Vercel Blob. Necesita BLOB_READ_WRITE_TOKEN
-// (Vercel lo crea solo al conectar un Blob Store al proyecto).
+// Fotos de productos en Vercel Blob. Al conectar un Blob Store al proyecto, Vercel crea:
+// - BLOB_STORE_ID en los stores nuevos: el SDK se autentica solo con OIDC (VERCEL_OIDC_TOKEN), sin token fijo.
+// - BLOB_READ_WRITE_TOKEN en los stores viejos (o si se lo carga a mano).
 export function fotosHabilitadas(): boolean {
-  return Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim())
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim() || process.env.BLOB_STORE_ID?.trim())
 }
 
 export const TIPOS_DE_FOTO = ['image/jpeg', 'image/png', 'image/webp']

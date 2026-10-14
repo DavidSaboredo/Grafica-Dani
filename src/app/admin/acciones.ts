@@ -119,7 +119,7 @@ export async function guardarProducto(formData: FormData): Promise<ResultadoAcci
   let fotoNueva: string | null | undefined = undefined
   if (foto instanceof File && foto.size > 0) {
     if (!fotosHabilitadas()) {
-      return { error: 'No se pueden subir fotos porque falta configurar BLOB_READ_WRITE_TOKEN en Vercel. Podés guardar el producto sin foto y agregarla después.' }
+      return { error: 'No se pueden subir fotos porque falta conectar el Blob Store al proyecto en Vercel. Podés guardar el producto sin foto y agregarla después.' }
     }
     if (!TIPOS_DE_FOTO.includes(foto.type)) return { error: 'La foto tiene que ser JPG, PNG o WebP.' }
     if (foto.size > PESO_MAXIMO_FOTO) return { error: 'La foto pesa demasiado. Probá con otra.' }

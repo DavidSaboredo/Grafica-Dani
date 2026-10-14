@@ -42,7 +42,8 @@ Se abre en http://localhost:3000 y el panel en http://localhost:3000/admin.
 | Variable | Para qué sirve |
 | --- | --- |
 | `DATABASE_URL` | Conexión a Postgres. En Vercel la crea la integración de Prisma Postgres (Storage). |
-| `BLOB_READ_WRITE_TOKEN` | Subir fotos de productos. Vercel la crea al conectar un Blob Store. Sin ella, el panel funciona sin fotos. |
+| `BLOB_STORE_ID` | Subir fotos de productos. Vercel la crea al conectar un Blob Store al proyecto y se autentica sola con OIDC (sin token fijo). Sin ella, el panel funciona sin fotos. |
+| `BLOB_READ_WRITE_TOKEN` | Alternativa a `BLOB_STORE_ID` para stores viejos (los que todavía crean el token). En local también podés usar `vercel env pull`, que trae `BLOB_STORE_ID` y `VERCEL_OIDC_TOKEN`. |
 | `ADMIN_USERNAME` | Usuario del panel `/admin`. |
 | `ADMIN_PASSWORD` | Contraseña del panel. |
 | `AUTH_SECRET` | Clave para firmar la sesión (mínimo 32 caracteres, por ejemplo `openssl rand -base64 48`). |
