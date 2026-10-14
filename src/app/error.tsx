@@ -19,7 +19,7 @@ export default function Error({
         <div className="text-6xl mb-4">⚠️</div>
         <h2 className="text-2xl font-bold text-gray-900 mb-4">¡Algo salió mal!</h2>
         <p className="text-gray-600 mb-6">
-          Ha ocurrido un error inesperado. Por favor, intenta de nuevo.
+          Ocurrió un error inesperado. Por favor, intentá de nuevo.
         </p>
         <div className="space-y-3">
           <button

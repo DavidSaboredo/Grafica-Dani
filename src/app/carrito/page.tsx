@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { formatPrice } from '../../lib/format'
 
 interface Product {
   id: string
@@ -70,7 +71,7 @@ export default function CarritoPage() {
         <section className="hero-section">
           <div className="hero-content">
             <h1 className="hero-title">Carrito de Compras</h1>
-            <p className="hero-subtitle">Gestiona tus productos seleccionados</p>
+            <p className="hero-subtitle">Gestioná tus productos seleccionados</p>
           </div>
         </section>
 
@@ -78,14 +79,14 @@ export default function CarritoPage() {
           <div className="empty-cart-content">
             <div className="empty-cart-icon">
               <svg className="empty-cart-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5.4M7 13v6a2 2 0 002 2h6a2 2 0 002-2v-6m-8 0V9a2 2 0 012-2h4a2 2 0 012 2v4" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </div>
             <h2 className="empty-cart-title">Tu carrito está vacío</h2>
-            <p className="empty-cart-description">Explora nuestro catálogo y agrega productos profesionales de impresión</p>
+            <p className="empty-cart-description">Explorá nuestro catálogo y agregá productos profesionales de impresión</p>
             <Link href="/" className="btn-gradient-primary">
               <svg className="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
               </svg>
               Explorar Catálogo
             </Link>
@@ -101,7 +102,7 @@ export default function CarritoPage() {
       <section className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">Carrito de Compras</h1>
-          <p className="hero-subtitle">Revisa y gestiona tus productos seleccionados</p>
+          <p className="hero-subtitle">Revisá y gestioná tus productos seleccionados</p>
         </div>
       </section>
 
@@ -145,7 +146,7 @@ export default function CarritoPage() {
                       </svg>
                       {product.categoria}
                     </div>
-                    <div className="cart-product-price">${product.precio.toFixed(2)}</div>
+                    <div className="cart-product-price">{formatPrice(product.precio)}</div>
                   </div>
                   
                   {/* Controles de cantidad */}
@@ -177,7 +178,7 @@ export default function CarritoPage() {
                   <div className="cart-product-actions">
                     <div className="cart-product-subtotal">
                       <div className="subtotal-label">Subtotal</div>
-                      <div className="subtotal-amount">${((product.precio * (product.cantidad || 1))).toFixed(2)}</div>
+                      <div className="subtotal-amount">{formatPrice(product.precio * (product.cantidad || 1))}</div>
                     </div>
                     <button 
                       onClick={() => removeFromCart(product.id)}
@@ -212,7 +213,7 @@ export default function CarritoPage() {
                       <span className="summary-item-name">{product.nombre}</span>
                       <span className="summary-item-quantity">x{product.cantidad || 1}</span>
                     </div>
-                    <span className="summary-item-price">${(product.precio * (product.cantidad || 1)).toFixed(2)}</span>
+                    <span className="summary-item-price">{formatPrice(product.precio * (product.cantidad || 1))}</span>
                   </div>
                 ))}
               </div>
@@ -222,7 +223,7 @@ export default function CarritoPage() {
               <div className="summary-total">
                 <div className="total-row">
                   <span className="total-label">Total a Pagar:</span>
-                  <span className="total-amount">${total.toFixed(2)}</span>
+                  <span className="total-amount">{formatPrice(total)}</span>
                 </div>
               </div>
               

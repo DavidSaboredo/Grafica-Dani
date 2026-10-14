@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { formatPrice } from '../../../lib/format'
 
 interface OrderItem {
   id: string
@@ -25,7 +26,7 @@ export async function POST(request: NextRequest) {
     const message = formatWhatsAppMessage(orderData)
     
     // Generar enlace de WhatsApp
-    const whatsappNumber = process.env.WHATSAPP_NUMBER || '543442462463'
+    const whatsappNumber = process.env.WHATSAPP_NUMBER || '5493442462463'
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
     
     return NextResponse.json({
@@ -60,10 +61,10 @@ function formatWhatsAppMessage(orderData: OrderData): string {
   
   message += `🛍️ *Productos:*\n`
   orderData.productos.forEach(producto => {
-    message += `• ${producto.name} (${producto.quantity}x) - $${producto.price * producto.quantity}\n`
+    message += `• ${producto.name} (${producto.quantity}x) - ${formatPrice(producto.price * producto.quantity)}\n`
   })
   
-  message += `\n💰 *Total:* $${orderData.total}\n`
+  message += `\n💰 *Total:* ${formatPrice(orderData.total)}\n`
   
   if (orderData.notas) {
     message += `\n📝 *Notas:* ${orderData.notas}\n`

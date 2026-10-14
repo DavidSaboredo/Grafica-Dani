@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { formatPrice } from '../../lib/format'
 
 interface Product {
   id: string
@@ -99,7 +100,7 @@ export default function PedidoPage() {
       }
     } catch (error) {
       console.error('Error al enviar pedido:', error)
-      alert('Error al enviar el pedido. Por favor, inténtalo de nuevo.')
+      alert('Error al enviar el pedido. Por favor, intentá de nuevo.')
     } finally {
       setIsSubmitting(false)
     }
@@ -112,7 +113,7 @@ export default function PedidoPage() {
         <section className="hero-section">
           <div className="hero-content">
             <h1 className="hero-title">Finalizar Pedido</h1>
-            <p className="hero-subtitle">Completa tu orden de impresión</p>
+            <p className="hero-subtitle">Completá tu pedido de impresión</p>
           </div>
         </section>
 
@@ -149,7 +150,7 @@ export default function PedidoPage() {
         <section className="hero-section">
           <div className="hero-content">
             <h1 className="hero-title">Pedido Completado</h1>
-            <p className="hero-subtitle">Tu orden ha sido procesada exitosamente</p>
+            <p className="hero-subtitle">Recibimos tu pedido correctamente</p>
           </div>
         </section>
 
@@ -164,7 +165,7 @@ export default function PedidoPage() {
             </div>
             <h2 className="order-success-title">¡Pedido Enviado por WhatsApp!</h2>
             <p className="order-success-description">
-              Tu pedido ha sido enviado exitosamente por WhatsApp. Nuestro equipo de D-Print Digital se pondrá en contacto contigo pronto para coordinar los detalles de producción y entrega.
+              Tu pedido se envió por WhatsApp. Nuestro equipo de D-Print Digital se va a contactar con vos pronto para coordinar los detalles de producción y entrega.
             </p>
             <div className="order-success-actions">
               <Link href="/" className="btn-primary">
@@ -187,7 +188,7 @@ export default function PedidoPage() {
       <section className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">Finalizar Pedido</h1>
-          <p className="hero-subtitle">Completa tu información para procesar tu orden</p>
+          <p className="hero-subtitle">Completá tus datos para enviar tu pedido</p>
         </div>
       </section>
 
@@ -324,11 +325,11 @@ export default function PedidoPage() {
                     <div className="order-item-info">
                       <h4 className="order-item-name">{product.nombre}</h4>
                       <p className="order-item-details">
-                        {product.cantidad || 1} × ${product.precio}
+                        {product.cantidad || 1} × {formatPrice(product.precio)}
                       </p>
                     </div>
                     <span className="order-item-total">
-                      ${((product.cantidad || 1) * product.precio).toFixed(2)}
+                      {formatPrice((product.cantidad || 1) * product.precio)}
                     </span>
                   </div>
                 ))}
@@ -337,7 +338,7 @@ export default function PedidoPage() {
               <div className="order-total">
                 <div className="order-total-row">
                   <span className="order-total-label">Total:</span>
-                  <span className="order-total-amount">${total.toFixed(2)}</span>
+                  <span className="order-total-amount">{formatPrice(total)}</span>
                 </div>
               </div>
               

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { fetchProducts, fetchProductsByCategory, searchProducts, Product } from '../lib/sheets'
+import { formatPrice } from '../lib/format'
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([])
@@ -24,7 +25,7 @@ export default function Home() {
       const data = await fetchProducts()
       setProducts(data)
     } catch (err) {
-      setError('Error al cargar los productos. Por favor, intenta de nuevo.')
+      setError('Error al cargar los productos. Por favor, intentá de nuevo.')
       console.error('Error loading products:', err)
     } finally {
       setLoading(false)
@@ -271,7 +272,7 @@ export default function Home() {
                       
                       <div className="price-container">
                         <span className="price-label">Precio:</span>
-                        <span className="price-value">${product.precio.toFixed(2)}</span>
+                        <span className="price-value">{formatPrice(product.precio)}</span>
                       </div>
                     </div>
                     
@@ -342,7 +343,7 @@ export default function Home() {
                         }
                       </span>
                       {canAddToCart(product, getSelectedQuantity(product.id)) && (
-                        <span className="btn-price">${(product.precio * getSelectedQuantity(product.id)).toFixed(2)}</span>
+                        <span className="btn-price">{formatPrice(product.precio * getSelectedQuantity(product.id))}</span>
                       )}
                     </button>
                   </div>
@@ -352,7 +353,7 @@ export default function Home() {
               <div className="empty-state-optimized">
                 <div className="empty-icon">📦</div>
                 <h3 className="empty-title">No se encontraron productos</h3>
-                <p className="empty-message">Intenta ajustar los filtros de búsqueda o categorías.</p>
+                <p className="empty-message">Probá con otra búsqueda o categoría.</p>
                 <button onClick={loadProducts} className="empty-reload-btn">
                   🔄 Recargar catálogo
                 </button>
