@@ -52,6 +52,8 @@ body {
   background: var(--gradient-subtle);
   color: var(--neutral-800);
   line-height: 1.6;
+  /* El hero usa 100vw, que en escritorio incluye la barra de desplazamiento */
+  overflow-x: clip;
 }
 
 /* Header optimizado */
@@ -2284,6 +2286,33 @@ svg.btn-icon {
   .category-active .category-name {
     color: white;
   }
+}
+
+/* ===== Demo del portfolio ===== */
+.demo-franja {
+  background: var(--neutral-900);
+  color: var(--neutral-300);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  text-align: center;
+  padding: 0.4rem 1rem;
+}
+
+.demo-franja a {
+  color: white;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.demo-franja a:hover {
+  color: #C4B5FD;
+}
+
+.demo-aviso-pedido {
+  font-size: 0.9rem;
+  color: var(--neutral-500);
+  margin-top: -1.25rem;
 }
 
 /* Botón "Salir" del panel con el mismo estilo que los links del menú */

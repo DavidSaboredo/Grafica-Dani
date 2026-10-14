@@ -27,6 +27,14 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={inter.className}>
+        {/* Este sitio es una demo del portfolio: se aclara arriba de todo */}
+        <div className="demo-franja" role="note">
+          Sitio de demostración hecho por{' '}
+          <a href="https://david-dev-ar.vercel.app/#demos" target="_blank" rel="noopener">
+            David.dev
+          </a>
+        </div>
+
         {/* Header optimizado */}
         <header className="header-optimized">
           <div className="container mx-auto px-6 py-4">
