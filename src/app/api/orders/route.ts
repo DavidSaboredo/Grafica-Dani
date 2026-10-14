@@ -21,7 +21,14 @@ interface OrderData {
 export async function POST(request: NextRequest) {
   try {
     const orderData: OrderData = await request.json()
-    
+
+    if (!orderData?.cliente?.trim() || !orderData?.telefono?.trim() || !Array.isArray(orderData.productos) || orderData.productos.length === 0) {
+      return NextResponse.json(
+        { success: false, error: 'Faltan datos del pedido (nombre, teléfono o productos)' },
+        { status: 400 }
+      )
+    }
+
     // Formatear mensaje para WhatsApp
     const message = formatWhatsAppMessage(orderData)
     
@@ -50,14 +57,22 @@ function formatWhatsAppMessage(orderData: OrderData): string {
     month: '2-digit', 
     year: 'numeric',
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
+    hour12: false,
+    // El servidor de Vercel corre en UTC: mostrar siempre la hora de Argentina
+    timeZone: 'America/Argentina/Buenos_Aires'
   })
   
   let message = `🎨 *NUEVO PEDIDO - D-Print Digital*\n\n`
   message += `👤 *Cliente:* ${orderData.cliente}\n`
   message += `📞 *Teléfono:* ${orderData.telefono}\n`
-  message += `📧 *Email:* ${orderData.email}\n`
-  message += `📍 *Dirección:* ${orderData.direccion}\n\n`
+  if (orderData.email) {
+    message += `📧 *Email:* ${orderData.email}\n`
+  }
+  if (orderData.direccion) {
+    message += `📍 *Dirección:* ${orderData.direccion}\n`
+  }
+  message += `\n`
   
   message += `🛍️ *Productos:*\n`
   orderData.productos.forEach(producto => {
