@@ -5,25 +5,27 @@ import { usePathname } from 'next/navigation'
 
 const Navigation = () => {
   const pathname = usePathname()
+  // next.config usa trailingSlash: true, así que "/carrito/" se compara como "/carrito"
+  const currentPath = pathname?.replace(/\/+$/, '') || '/'
 
   const navItems = [
     {
       href: '/',
       icon: '📋',
       text: 'Catálogo',
-      isActive: pathname === '/'
+      isActive: currentPath === '/'
     },
     {
       href: '/carrito',
       icon: '🛒',
       text: 'Carrito',
-      isActive: pathname === '/carrito'
+      isActive: currentPath === '/carrito'
     },
     {
       href: '/pedido',
       icon: '📦',
       text: 'Pedidos',
-      isActive: pathname === '/pedido'
+      isActive: currentPath === '/pedido'
     }
   ]
 
