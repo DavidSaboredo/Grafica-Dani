@@ -1,8 +1,8 @@
 // Catálogo de ejemplo de la demo (D-Print Digital es una imprenta ficticia).
 // Corre en cada compilación de Vercel después de las migraciones, pero solo carga
 // productos si la tabla está vacía: nunca pisa ni duplica lo cargado desde /admin.
-// Las fotos son ilustraciones propias en public/demo (no se borran desde el panel).
-import { PrismaClient } from '@prisma/client'
+// Las fotos son de Unsplash (licencia libre, créditos en public/demo/CREDITOS.md) y no se borran desde el panel.
+import { Prisma, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -27,7 +27,7 @@ const productos: ProductoDeEjemplo[] = [
     descripcion: 'Papel ilustración 300 g, impresas a color de ambos lados. Medida estándar de 9 x 5 cm.',
     precio: 24500,
     categoria: 'Tarjetas personales',
-    foto: '/demo/tarjetas.svg',
+    foto: '/demo/tarjetas-personales.webp',
     destacado: true,
   },
   {
@@ -35,14 +35,14 @@ const productos: ProductoDeEjemplo[] = [
     descripcion: 'Laminado mate de ambos lados y laca sectorizada sobre el logo. Terminación suave al tacto.',
     precio: 41000,
     categoria: 'Tarjetas personales',
-    foto: '/demo/tarjetas-premium.svg',
+    foto: '/demo/tarjetas-premium.webp',
   },
   {
     nombre: 'Volantes A6 x1000',
     descripcion: 'Formato 10,5 x 14,8 cm en papel obra 90 g, color de un lado. Ideales para repartir o dejar en el mostrador.',
     precio: 52000,
     categoria: 'Volantes y folletos',
-    foto: '/demo/volantes.svg',
+    foto: '/demo/volantes-a6.webp',
     destacado: true,
   },
   {
@@ -50,21 +50,21 @@ const productos: ProductoDeEjemplo[] = [
     descripcion: 'Formato 14,8 x 21 cm en papel ilustración 115 g, color de ambos lados.',
     precio: 63000,
     categoria: 'Volantes y folletos',
-    foto: '/demo/volantes.svg',
+    foto: '/demo/volantes-a5.webp',
   },
   {
     nombre: 'Folletos trípticos A4 x100',
     descripcion: 'Ilustración 150 g, color de ambos lados, plegados y listos para entregar.',
     precio: 78000,
     categoria: 'Volantes y folletos',
-    foto: '/demo/tripticos.svg',
+    foto: '/demo/tripticos.webp',
   },
   {
     nombre: 'Stickers troquelados x100',
     descripcion: 'Vinilo blanco con laminado brillante, cortados con la forma de tu logo. Resisten agua y sol.',
     precio: 36000,
     categoria: 'Stickers y etiquetas',
-    foto: '/demo/stickers.svg',
+    foto: '/demo/stickers.webp',
     destacado: true,
   },
   {
@@ -72,70 +72,70 @@ const productos: ProductoDeEjemplo[] = [
     descripcion: 'Autoadhesivas de 5 x 3 cm para frascos, envases y packaging de tu emprendimiento.',
     precio: 48000,
     categoria: 'Stickers y etiquetas',
-    foto: '/demo/etiquetas.svg',
+    foto: '/demo/etiquetas.webp',
   },
   {
     nombre: 'Banner roll-up 85 x 200 cm',
     descripcion: 'Lona impresa en alta calidad con estructura de aluminio y bolso para transportarlo. Se arma en un minuto.',
     precio: 128000,
     categoria: 'Banners y cartelería',
-    foto: '/demo/rollup.svg',
+    foto: '/demo/rollup.webp',
   },
   {
     nombre: 'Lona impresa con ojales (por m²)',
     descripcion: 'Gran formato para frentes de local, eventos y obras. Con ojales y refuerzo en los bordes.',
     precio: 19500,
     categoria: 'Banners y cartelería',
-    foto: '/demo/lona.svg',
+    foto: '/demo/lona.webp',
   },
   {
     nombre: 'Vinilo para vidriera',
     descripcion: 'Tu logo, horarios o promociones en vinilo de corte o impreso. El precio depende de la medida.',
     precio: null,
     categoria: 'Banners y cartelería',
-    foto: '/demo/vidriera.svg',
+    foto: '/demo/vidriera.webp',
   },
   {
     nombre: 'Talonarios de remitos x10',
     descripcion: 'Duplicado autocopiativo, 50 juegos por talonario, numerados y con los datos de tu negocio.',
     precio: 56000,
     categoria: 'Talonarios',
-    foto: '/demo/talonarios.svg',
+    foto: '/demo/talonarios-remitos.webp',
   },
   {
     nombre: 'Talonarios de facturas con CAI',
     descripcion: 'Facturas A, B o C con CAI de ARCA. El precio depende de la cantidad y del tipo de comprobante.',
     precio: null,
     categoria: 'Talonarios',
-    foto: '/demo/talonarios.svg',
+    foto: '/demo/talonarios-facturas.webp',
   },
   {
     nombre: 'Imanes publicitarios x100',
     descripcion: 'Imán flexible de 7 x 5 cm impreso a color. El clásico para delivery, inmobiliarias y servicios.',
     precio: 47000,
     categoria: 'Imanes',
-    foto: '/demo/imanes.svg',
+    foto: '/demo/imanes.webp',
   },
   {
     nombre: 'Sello automático 38 x 14 mm',
     descripcion: 'Se entinta solo, con hasta 4 líneas de texto. Ideal para firmas, CUIT y datos del comercio.',
     precio: 27000,
     categoria: 'Sellos',
-    foto: '/demo/sellos.svg',
+    foto: '/demo/sello-automatico.webp',
   },
   {
     nombre: 'Sello redondo de 40 mm',
     descripcion: 'Para logos, firmas institucionales o la marca de tu emprendimiento.',
     precio: 34000,
     categoria: 'Sellos',
-    foto: '/demo/sellos.svg',
+    foto: '/demo/sello-redondo.webp',
   },
   {
     nombre: 'Almanaques de bolsillo 2027 x200',
     descripcion: 'El regalo de fin de año para tus clientes: 7 x 10 cm, con tu logo y datos al dorso.',
     precio: 42000,
     categoria: 'Almanaques y agendas',
-    foto: '/demo/almanaques.svg',
+    foto: '/demo/almanaques-bolsillo.webp',
     destacado: true,
   },
   {
@@ -143,7 +143,7 @@ const productos: ProductoDeEjemplo[] = [
     descripcion: 'Tamaño A4 con espiral y 12 hojas a color con fotos de tus productos.',
     precio: 165000,
     categoria: 'Almanaques y agendas',
-    foto: '/demo/almanaques.svg',
+    foto: '/demo/almanaques-pared.webp',
   },
   {
     // Oculto a propósito: muestra en el panel cómo queda un producto que no se ve en la tienda
@@ -151,10 +151,49 @@ const productos: ProductoDeEjemplo[] = [
     descripcion: 'Tapa dura con tu logo. Disponibles desde noviembre.',
     precio: null,
     categoria: 'Almanaques y agendas',
-    foto: null,
+    foto: '/demo/agendas.webp',
     visible: false,
   },
 ]
+
+// Las primeras versiones de la demo usaban ilustraciones SVG que ya no existen.
+// Si la base todavía las tiene, se cambian por las fotos nuevas (las fotos subidas desde /admin no se tocan).
+const ILUSTRACIONES_VIEJAS: Record<string, string> = {
+  '/demo/tarjetas.svg': '/demo/tarjetas-personales.webp',
+  '/demo/tarjetas-premium.svg': '/demo/tarjetas-premium.webp',
+  '/demo/volantes.svg': '/demo/volantes-a6.webp',
+  '/demo/tripticos.svg': '/demo/tripticos.webp',
+  '/demo/stickers.svg': '/demo/stickers.webp',
+  '/demo/etiquetas.svg': '/demo/etiquetas.webp',
+  '/demo/rollup.svg': '/demo/rollup.webp',
+  '/demo/lona.svg': '/demo/lona.webp',
+  '/demo/vidriera.svg': '/demo/vidriera.webp',
+  '/demo/talonarios.svg': '/demo/talonarios-remitos.webp',
+  '/demo/imanes.svg': '/demo/imanes.webp',
+  '/demo/sellos.svg': '/demo/sello-automatico.webp',
+  '/demo/almanaques.svg': '/demo/almanaques-bolsillo.webp',
+}
+
+
+async function reemplazarIlustracionesViejas(tx: Prisma.TransactionClient) {
+  const viejas = Object.keys(ILUSTRACIONES_VIEJAS)
+  let cambiadas = 0
+  // Primero por nombre, para que los productos que compartían ilustración queden con su propia foto
+  for (const producto of productos) {
+    if (!producto.foto) continue
+    const { count } = await tx.producto.updateMany({
+      where: { nombre: producto.nombre, foto: { in: viejas } },
+      data: { foto: producto.foto },
+    })
+    cambiadas += count
+  }
+  // Lo que quede (por ejemplo, productos renombrados desde el panel) va por archivo
+  for (const [vieja, nueva] of Object.entries(ILUSTRACIONES_VIEJAS)) {
+    const { count } = await tx.producto.updateMany({ where: { foto: vieja }, data: { foto: nueva } })
+    cambiadas += count
+  }
+  if (cambiadas > 0) console.log(`Semilla: se cambiaron ${cambiadas} ilustraciones viejas por fotos.`)
+}
 
 async function main() {
   const cargados = await prisma.$transaction(
@@ -163,6 +202,7 @@ async function main() {
 
       const existentes = await tx.producto.count()
       if (existentes > 0) {
+        await reemplazarIlustracionesViejas(tx)
         console.log(`Semilla: la base ya tiene ${existentes} productos, no se carga nada.`)
         return 0
       }
