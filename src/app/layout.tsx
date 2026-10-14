@@ -8,6 +8,15 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'D-Print Digital - Soluciones de Impresión Profesional',
   description: 'Catálogo de productos de impresión digital - D-Print Digital',
+  metadataBase: new URL('https://grafica-dani.vercel.app'),
+  openGraph: {
+    title: 'D-Print Digital - Soluciones de Impresión Profesional',
+    description: 'Tarjetas, flyers, banners y más. Armá tu pedido online y confirmalo por WhatsApp.',
+    url: '/',
+    siteName: 'D-Print Digital',
+    locale: 'es_AR',
+    type: 'website',
+  },
 }
 
 export default function RootLayout({
@@ -43,7 +52,7 @@ export default function RootLayout({
         {/* Footer profesional */}
         <footer className="footer-professional">
           <div className="container mx-auto px-6 py-8 text-center">
-            <p className="text-gradient font-semibold">© 2025 By David Saboredo</p>
+            <p className="text-gradient font-semibold">© {new Date().getFullYear()} D-Print Digital · Diseñado y desarrollado por David Saboredo</p>
           </div>
         </footer>
       </body>
