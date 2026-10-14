@@ -268,6 +268,7 @@ body {
 
 .search-input-optimized {
   flex: 1;
+  min-width: 0; /* deja que el input se achique en celular */
   padding: 1rem 0;
   border: none;
   outline: none;
@@ -291,6 +292,12 @@ body {
 
 .search-button-optimized:hover {
   transform: scale(1.05);
+}
+
+@media (max-width: 480px) {
+  .search-button-optimized {
+    padding: 1rem 1.25rem;
+  }
 }
 
 /* Categorías profesionales */
@@ -1458,6 +1465,32 @@ body {
   background: rgba(239, 68, 68, 0.2);
   border-color: #DC2626;
   transform: translateY(-2px);
+}
+
+/* En celular el título, el contador y "Vaciar Carrito" no entran en una fila */
+@media (max-width: 768px) {
+  .cart-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .cart-header {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .cart-title-section {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .cart-main-title {
+    font-size: 1.5rem;
+  }
+
+  .btn-clear-cart {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
 }
 
 .cart-layout {
