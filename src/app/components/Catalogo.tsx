@@ -130,7 +130,10 @@ export default function Catalogo({ productos, categorias, error, whatsappUrl }: 
       <section className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">Catálogo D-Print Digital</h1>
-          <p className="hero-subtitle">Soluciones de impresión</p>
+          <p className="hero-subtitle">
+            Tarjetas, volantes, stickers, banners, talonarios y sellos. Armá tu pedido online y confirmalo por
+            WhatsApp.
+          </p>
         </div>
       </section>
 
