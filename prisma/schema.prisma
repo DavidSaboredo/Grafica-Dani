@@ -1,0 +1,29 @@
+// Catálogo de D-Print Digital. Los productos se cargan desde el panel /admin.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Producto {
+  id            String   @id @default(cuid())
+  nombre        String
+  descripcion   String?
+  // Precio en pesos enteros. Vacío = "Consultá precio" (se cotiza por WhatsApp)
+  precio        Int?
+  categoria     String
+  // URL pública de la foto en Vercel Blob
+  foto          String?
+  visible       Boolean  @default(true)
+  destacado     Boolean  @default(false)
+  orden         Int      @default(0)
+  creadoEn      DateTime @default(now())
+  actualizadoEn DateTime @updatedAt
+
+  @@index([visible, destacado, orden])
+  @@index([categoria])
+}

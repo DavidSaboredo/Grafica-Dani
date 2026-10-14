@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ECFDF5"/><stop offset="1" stop-color="#CFF5E3"/></linearGradient>
+<linearGradient id="marca" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B5CF6"/><stop offset=".55" stop-color="#EC4899"/><stop offset="1" stop-color="#F97316"/></linearGradient>
+<filter id="sombra" x="-25%" y="-25%" width="150%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="10"/><feOffset dy="12"/><feComponentTransfer><feFuncA type="linear" slope=".2"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="800" height="520" fill="url(#bg)"/>
+<circle cx="710" cy="60" r="170" fill="#fff" opacity=".35"/>
+<circle cx="60" cy="480" r="130" fill="#fff" opacity=".3"/>
+<ellipse cx="415" cy="440" rx="250" ry="20" fill="#0F172A" opacity=".1"/>
+<g filter="url(#sombra)">
+<polygon points="190,140 340,110 340,430 190,400" fill="#fff"/>
+<polygon points="340,110 490,140 490,400 340,430" fill="#EEF2F6"/>
+<polygon points="490,140 640,110 640,430 490,400" fill="#fff"/>
+</g>
+<g transform="translate(190 140) skewY(-11.31)">
+<rect x="14" y="16" width="122" height="92" rx="8" fill="url(#marca)"/>
+<circle cx="45" cy="50" r="14" fill="#fff" opacity=".85"/>
+<rect x="14" y="128" width="110" height="10" rx="5" fill="#64748B"/>
+<rect x="14" y="150" width="120" height="7" rx="3.5" fill="#CBD5E1"/>
+<rect x="14" y="166" width="100" height="7" rx="3.5" fill="#CBD5E1"/>
+<rect x="14" y="182" width="115" height="7" rx="3.5" fill="#CBD5E1"/>
+<rect x="14" y="198" width="90" height="7" rx="3.5" fill="#CBD5E1"/>
+</g>
+<g transform="translate(340 110) skewY(11.31)">
+<rect x="14" y="24" width="100" height="12" rx="6" fill="#10B981"/>
+<rect x="14" y="50" width="120" height="7" rx="3.5" fill="#B8C2CF"/>
+<rect x="14" y="66" width="110" height="7" rx="3.5" fill="#B8C2CF"/>
+<rect x="14" y="82" width="120" height="7" rx="3.5" fill="#B8C2CF"/>
+<rect x="14" y="110" width="122" height="80" rx="8" fill="#A7F3D0"/>
+<rect x="14" y="210" width="115" height="7" rx="3.5" fill="#B8C2CF"/>
+<rect x="14" y="226" width="95" height="7" rx="3.5" fill="#B8C2CF"/>
+</g>
+<g transform="translate(490 140) skewY(-11.31)">
+<circle cx="75" cy="70" r="44" fill="#10B981"/>
+<path d="M55 70 l14 14 l27 -28" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="20" y="140" width="110" height="10" rx="5" fill="#64748B"/>
+<rect x="20" y="162" width="110" height="7" rx="3.5" fill="#CBD5E1"/>
+<rect x="30" y="178" width="90" height="7" rx="3.5" fill="#CBD5E1"/>
+<rect x="25" y="210" width="100" height="30" rx="15" fill="url(#marca)"/>
+</g>
+</svg>

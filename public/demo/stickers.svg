@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FDF2F8"/><stop offset="1" stop-color="#FBDDEE"/></linearGradient>
+<linearGradient id="marca" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B5CF6"/><stop offset=".55" stop-color="#EC4899"/><stop offset="1" stop-color="#F97316"/></linearGradient>
+<filter id="sombra" x="-25%" y="-25%" width="150%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="10"/><feOffset dy="12"/><feComponentTransfer><feFuncA type="linear" slope=".2"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="800" height="520" fill="url(#bg)"/>
+<circle cx="710" cy="60" r="170" fill="#fff" opacity=".35"/>
+<circle cx="60" cy="480" r="130" fill="#fff" opacity=".3"/>
+<g filter="url(#sombra)">
+<g transform="translate(300 225)">
+<circle r="104" fill="#fff"/>
+<circle r="92" fill="url(#marca)"/>
+<text y="14" text-anchor="middle" font-size="44" font-weight="800" fill="#fff">¡HOLA!</text>
+</g>
+<g transform="translate(540 190) rotate(9)">
+<rect x="-112" y="-67" width="224" height="134" rx="30" fill="#fff"/>
+<rect x="-100" y="-55" width="200" height="110" rx="22" fill="#3B82F6"/>
+<circle cx="-52" cy="0" r="24" fill="#fff" opacity=".9"/>
+<text x="-18" y="-4" font-size="24" font-weight="800" fill="#fff">TU</text>
+<text x="-18" y="22" font-size="24" font-weight="800" fill="#fff">LOGO</text>
+</g>
+<g transform="translate(545 375) rotate(-10)"><path d="M0 30 C-40 0 -40 -35 -15 -40 C0 -43 0 -30 0 -25 C0 -30 0 -43 15 -40 C40 -35 40 0 0 30 Z" transform="scale(1.9)" fill="#fff" stroke="#fff" stroke-width="10" stroke-linejoin="round"/>
+<path d="M0 30 C-40 0 -40 -35 -15 -40 C0 -43 0 -30 0 -25 C0 -30 0 -43 15 -40 C40 -35 40 0 0 30 Z" transform="scale(1.9)" fill="#EC4899"/></g>
+<g transform="translate(215 400) rotate(-12)"><polygon points="0.0,-62.0 17.5,-24.1 59.0,-19.2 28.3,9.2 36.4,50.2 0.0,29.8 -36.4,50.2 -28.3,9.2 -59.0,-19.2 -17.5,-24.1" fill="#fff" stroke="#fff" stroke-width="16" stroke-linejoin="round"/>
+<polygon points="0.0,-62.0 17.5,-24.1 59.0,-19.2 28.3,9.2 36.4,50.2 0.0,29.8 -36.4,50.2 -28.3,9.2 -59.0,-19.2 -17.5,-24.1" fill="#FACC15"/></g>
+<g transform="translate(380 410) rotate(6)">
+<circle r="44" fill="#fff"/>
+<circle r="35" fill="#10B981"/>
+<path d="M-15 0 l10 11 l21 -22" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

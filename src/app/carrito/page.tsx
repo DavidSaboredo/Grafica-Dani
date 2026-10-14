@@ -2,40 +2,32 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { formatPrice } from '../../lib/format'
-
-interface Product {
-  id: string
-  nombre: string
-  precio: number
-  stock?: number
-  categoria: string
-  imagen: string
-  cantidad?: number
-}
+import Image from 'next/image'
+import { formatPrecioOpcional } from '../../lib/format'
+import {
+  CANTIDAD_MAXIMA,
+  guardarCarrito,
+  leerCarrito,
+  subtotalItem,
+  textoTotal,
+  totalesCarrito,
+  type ItemCarrito,
+} from '../../lib/carrito'
 
 export default function CarritoPage() {
-  const [cart, setCart] = useState<Product[]>([])
-  const [total, setTotal] = useState(0)
+  const [cart, setCart] = useState<ItemCarrito[]>([])
   // Evita mostrar "carrito vacío" antes de leer localStorage
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     // Cargar carrito desde localStorage
-    const savedCart = localStorage.getItem('carrito')
-    if (savedCart) {
-      const cartItems = JSON.parse(savedCart)
-      setCart(cartItems)
-      calculateTotal(cartItems)
-    }
+    setCart(leerCarrito())
     setIsLoaded(true)
   }, [])
 
-  const calculateTotal = (items: Product[]) => {
-    const totalAmount = items.reduce((sum, item) => {
-      return sum + (item.precio * (item.cantidad || 1))
-    }, 0)
-    setTotal(totalAmount)
+  const updateCart = (updatedCart: ItemCarrito[]) => {
+    setCart(updatedCart)
+    guardarCarrito(updatedCart)
   }
 
   const updateQuantity = (productId: string, newQuantity: number) => {
@@ -44,28 +36,22 @@ export default function CarritoPage() {
       return
     }
 
-    const updatedCart = cart.map(item => 
-      item.id === productId 
-        ? { ...item, cantidad: newQuantity }
+    updateCart(cart.map(item =>
+      item.id === productId
+        ? { ...item, cantidad: Math.min(CANTIDAD_MAXIMA, newQuantity) }
         : item
-    )
-    setCart(updatedCart)
-    calculateTotal(updatedCart)
-    localStorage.setItem('carrito', JSON.stringify(updatedCart))
+    ))
   }
 
   const removeFromCart = (productId: string) => {
-    const updatedCart = cart.filter(item => item.id !== productId)
-    setCart(updatedCart)
-    calculateTotal(updatedCart)
-    localStorage.setItem('carrito', JSON.stringify(updatedCart))
+    updateCart(cart.filter(item => item.id !== productId))
   }
 
   const clearCart = () => {
-    setCart([])
-    setTotal(0)
-    localStorage.removeItem('carrito')
+    updateCart([])
   }
+
+  const { aCotizar } = totalesCarrito(cart)
 
   if (!isLoaded) {
     return (
@@ -146,11 +132,22 @@ export default function CarritoPage() {
                 <div className="cart-product-content">
                   {/* Imagen del producto */}
                   <div className="cart-product-image">
-                    <div className="product-image-placeholder">
-                      <svg className="product-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                    </div>
+                    {product.foto ? (
+                      <Image
+                        src={product.foto}
+                        alt={product.nombre}
+                        width={80}
+                        height={80}
+                        className="cart-product-photo"
+                        unoptimized={product.foto.endsWith('.svg')}
+                      />
+                    ) : (
+                      <div className="product-image-placeholder">
+                        <svg className="product-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
                   
                   {/* Información del producto */}
@@ -162,7 +159,7 @@ export default function CarritoPage() {
                       </svg>
                       {product.categoria}
                     </div>
-                    <div className="cart-product-price">{formatPrice(product.precio)}</div>
+                    <div className={`cart-product-price ${product.precio === null ? 'price-consultar' : ''}`}>{formatPrecioOpcional(product.precio)}</div>
                   </div>
                   
                   {/* Controles de cantidad */}
@@ -182,6 +179,7 @@ export default function CarritoPage() {
                       <button 
                         onClick={() => updateQuantity(product.id, (product.cantidad || 1) + 1)}
                         className="quantity-btn quantity-btn-increase"
+                        disabled={(product.cantidad || 1) >= CANTIDAD_MAXIMA}
                       >
                         <svg className="quantity-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -194,11 +192,12 @@ export default function CarritoPage() {
                   <div className="cart-product-actions">
                     <div className="cart-product-subtotal">
                       <div className="subtotal-label">Subtotal</div>
-                      <div className="subtotal-amount">{formatPrice(product.precio * (product.cantidad || 1))}</div>
+                      <div className="subtotal-amount">{subtotalItem(product)}</div>
                     </div>
-                    <button 
+                    <button
                       onClick={() => removeFromCart(product.id)}
                       className="btn-remove-product"
+                      aria-label={`Quitar ${product.nombre} del carrito`}
                     >
                       <svg className="remove-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -229,7 +228,7 @@ export default function CarritoPage() {
                       <span className="summary-item-name">{product.nombre}</span>
                       <span className="summary-item-quantity">x{product.cantidad || 1}</span>
                     </div>
-                    <span className="summary-item-price">{formatPrice(product.precio * (product.cantidad || 1))}</span>
+                    <span className="summary-item-price">{subtotalItem(product)}</span>
                   </div>
                 ))}
               </div>
@@ -238,9 +237,14 @@ export default function CarritoPage() {
               
               <div className="summary-total">
                 <div className="total-row">
-                  <span className="total-label">Total a Pagar:</span>
-                  <span className="total-amount">{formatPrice(total)}</span>
+                  <span className="total-label">{aCotizar > 0 ? 'Total estimado:' : 'Total a Pagar:'}</span>
+                  <span className="total-amount">{textoTotal(cart)}</span>
                 </div>
+                {aCotizar > 0 && (
+                  <p className="total-note">
+                    Los productos sin precio se cotizan por WhatsApp según cantidad y terminación.
+                  </p>
+                )}
               </div>
               
               <div className="summary-actions">

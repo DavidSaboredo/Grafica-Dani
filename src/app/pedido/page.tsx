@@ -2,17 +2,15 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { formatPrice } from '../../lib/format'
-
-interface Product {
-  id: string
-  nombre: string
-  precio: number
-  stock?: number
-  categoria: string
-  imagen: string
-  cantidad?: number
-}
+import { formatPrecioOpcional } from '../../lib/format'
+import {
+  guardarCarrito,
+  leerCarrito,
+  subtotalItem,
+  textoTotal,
+  totalesCarrito,
+  type ItemCarrito,
+} from '../../lib/carrito'
 
 interface OrderForm {
   nombre: string
@@ -23,8 +21,7 @@ interface OrderForm {
 }
 
 export default function PedidoPage() {
-  const [cart, setCart] = useState<Product[]>([])
-  const [total, setTotal] = useState(0)
+  const [cart, setCart] = useState<ItemCarrito[]>([])
   const [orderForm, setOrderForm] = useState<OrderForm>({
     nombre: '',
     telefono: '',
@@ -41,17 +38,11 @@ export default function PedidoPage() {
 
   useEffect(() => {
     // Cargar carrito desde localStorage
-    const savedCart = localStorage.getItem('carrito')
-    if (savedCart) {
-      const cartItems = JSON.parse(savedCart)
-      setCart(cartItems)
-      const totalAmount = cartItems.reduce((sum: number, item: Product) => {
-        return sum + (item.precio * (item.cantidad || 1))
-      }, 0)
-      setTotal(totalAmount)
-    }
+    setCart(leerCarrito())
     setIsLoaded(true)
   }, [])
+
+  const { aCotizar } = totalesCarrito(cart)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -67,7 +58,8 @@ export default function PedidoPage() {
     setSubmitError('')
 
     try {
-      // Preparar datos del pedido para WhatsApp
+      // Preparar datos del pedido para WhatsApp. Nombre y precio de cada producto
+      // los vuelve a leer el servidor desde la base (por si cambiaron).
       const orderData = {
         cliente: orderForm.nombre,
         telefono: orderForm.telefono,
@@ -75,11 +67,8 @@ export default function PedidoPage() {
         direccion: orderForm.direccion,
         productos: cart.map(product => ({
           id: product.id,
-          name: product.nombre,
-          quantity: product.cantidad || 1,
-          price: product.precio
+          quantity: product.cantidad
         })),
-        total: total,
         notas: orderForm.notas
       }
 
@@ -94,6 +83,15 @@ export default function PedidoPage() {
 
       const result = await response.json()
 
+      // Productos que se borraron u ocultaron mientras estaban en el carrito
+      if (response.status === 409 && Array.isArray(result.faltantes)) {
+        const updatedCart = cart.filter(item => !result.faltantes.includes(item.id))
+        setCart(updatedCart)
+        guardarCarrito(updatedCart)
+        setSubmitError(result.error)
+        return
+      }
+
       if (result.success) {
         // Abrir WhatsApp con el mensaje pre-formateado. Algunos celulares
         // bloquean la ventana nueva: queda el botón "Abrir WhatsApp" de respaldo.
@@ -101,7 +99,7 @@ export default function PedidoPage() {
         window.open(result.whatsappUrl, '_blank')
 
         // Limpiar carrito después del pedido exitoso
-        localStorage.removeItem('carrito')
+        guardarCarrito([])
         setOrderSubmitted(true)
       } else {
         throw new Error(result.error || 'Error al procesar el pedido')
@@ -186,7 +184,10 @@ export default function PedidoPage() {
             </div>
             <h2 className="order-success-title">¡Tu pedido está listo!</h2>
             <p className="order-success-description">
-              Abrimos WhatsApp con el detalle de tu pedido: tocá <strong>Enviar</strong> en el chat para confirmarlo. Después, el equipo de D-Print Digital se va a contactar con vos para coordinar la producción y la entrega.
+              Abrimos WhatsApp con el detalle de tu pedido: tocá <strong>Enviar</strong> en el chat para confirmarlo. Así le llegan los pedidos a la imprenta, listos para coordinar la producción y la entrega.
+            </p>
+            <p className="order-success-description demo-aviso-pedido">
+              Este es un sitio de demostración: el mensaje le llega a David.dev, que desarrolló esta tienda.
             </p>
             <div className="order-success-actions">
               {whatsappUrl && (
@@ -358,11 +359,11 @@ export default function PedidoPage() {
                     <div className="order-item-info">
                       <h4 className="order-item-name">{product.nombre}</h4>
                       <p className="order-item-details">
-                        {product.cantidad || 1} × {formatPrice(product.precio)}
+                        {product.cantidad} × {formatPrecioOpcional(product.precio)}
                       </p>
                     </div>
                     <span className="order-item-total">
-                      {formatPrice((product.cantidad || 1) * product.precio)}
+                      {subtotalItem(product)}
                     </span>
                   </div>
                 ))}
@@ -370,9 +371,14 @@ export default function PedidoPage() {
               
               <div className="order-total">
                 <div className="order-total-row">
-                  <span className="order-total-label">Total:</span>
-                  <span className="order-total-amount">{formatPrice(total)}</span>
+                  <span className="order-total-label">{aCotizar > 0 ? 'Total estimado:' : 'Total:'}</span>
+                  <span className="order-total-amount">{textoTotal(cart)}</span>
                 </div>
+                {aCotizar > 0 && (
+                  <p className="total-note">
+                    Los productos sin precio te los cotizamos por WhatsApp al recibir el pedido.
+                  </p>
+                )}
               </div>
               
               <div className="order-actions">

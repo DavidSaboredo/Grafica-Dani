@@ -2116,3 +2116,172 @@ svg.btn-icon {
     font-size: 1.375rem;
   }
 }
+
+/* ===== Catálogo desde la base de datos ===== */
+.product-description {
+  color: var(--neutral-600);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: -0.5rem 0 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-featured-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: var(--gradient-primary);
+  color: white;
+  padding: 0.5rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+}
+
+.product-info .price-container {
+  text-align: left;
+}
+
+.price-value.price-consultar,
+.cart-product-price.price-consultar {
+  font-size: 1.125rem;
+}
+
+.product-info .cart-info {
+  color: var(--primary-purple);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-style: normal;
+  opacity: 1;
+  text-align: right;
+}
+
+.add-to-cart-btn-optimized.btn-added {
+  background: var(--gradient-green);
+}
+
+.empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #25D366;
+  color: white;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+  background: #1EBE5A;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+}
+
+.catalog-empty {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.total-note {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--neutral-500);
+  line-height: 1.4;
+}
+
+.cart-product-photo {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: var(--neutral-100);
+}
+
+/* Las categorías salen de lo que se carga en el panel: tarjetas más compactas */
+.categories-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.category-card {
+  min-height: 130px;
+  padding: 1.5rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .categories-section {
+    margin-bottom: 2rem;
+  }
+
+  .categories-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  /* En el celular: una fila de botones que se desliza de costado */
+  .categories-grid {
+    display: flex;
+    max-width: none;
+    overflow-x: auto;
+    gap: 0.5rem;
+    padding: 0.25rem 0.25rem 0.75rem;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .category-card {
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 0.5rem;
+    min-height: auto;
+    padding: 0.625rem 1rem;
+    border-radius: 999px;
+    scroll-snap-align: start;
+  }
+
+  .category-card:hover,
+  .category-active {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .category-card::before,
+  .category-indicator {
+    display: none;
+  }
+
+  .categories-grid .category-icon {
+    width: auto;
+    height: auto;
+    font-size: 1.25rem;
+    margin-bottom: 0;
+  }
+
+  .category-name {
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+
+  .category-active {
+    background: var(--gradient-primary);
+    border-color: transparent;
+  }
+
+  .category-active .category-name {
+    color: white;
+  }
+}

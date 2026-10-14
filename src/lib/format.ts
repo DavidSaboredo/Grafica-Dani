@@ -7,3 +7,8 @@ export function formatPrice(value: number): string {
     maximumFractionDigits: decimals,
   })
 }
+
+// Precio opcional: los productos sin precio se cotizan por WhatsApp
+export function formatPrecioOpcional(value: number | null | undefined): string {
+  return typeof value === 'number' ? formatPrice(value) : 'Consultá precio'
+}
