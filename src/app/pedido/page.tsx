@@ -187,7 +187,7 @@ export default function PedidoPage() {
               Abrimos WhatsApp con el detalle de tu pedido: tocá <strong>Enviar</strong> en el chat para confirmarlo. Así le llegan los pedidos a la imprenta, listos para coordinar la producción y la entrega.
             </p>
             <p className="order-success-description demo-aviso-pedido">
-              Este es un sitio de demostración: el mensaje le llega a David.dev, que desarrolló esta tienda.
+              Este es un sitio de demostración: el mensaje le llega a laruzo-dev, que desarrolló esta tienda.
             </p>
             <div className="order-success-actions">
               {whatsappUrl && (

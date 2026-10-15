@@ -1,4 +1,4 @@
-// WhatsApp que recibe los pedidos. En la demo es el número de David;
+// WhatsApp que recibe los pedidos. En la demo es el número de laruzo-dev;
 // se puede cambiar con la variable WHATSAPP_NUMBER (solo números, con código de país).
 const WHATSAPP_POR_DEFECTO = '5493442462463'
 

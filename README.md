@@ -2,7 +2,7 @@
 
 **Tienda online para gráficas e imprentas: el catálogo se carga desde un panel pensado para el celular y los pedidos llegan listos por WhatsApp.**
 
-> Sitio de demostración del portfolio de [David.dev](https://david-dev-ar.vercel.app/#demos). D-Print Digital es una imprenta ficticia: los productos y precios son de ejemplo.
+> Sitio de demostración del portfolio de [laruzo-dev](https://david-dev-ar.vercel.app/#demos). D-Print Digital es una imprenta ficticia: los productos y precios son de ejemplo.
 
 ![Vista previa de D-Print Digital](docs/preview.jpg)
 

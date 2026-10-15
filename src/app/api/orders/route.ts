@@ -108,9 +108,9 @@ function formatWhatsAppMessage(orderData: OrderData): string {
     timeZone: 'America/Argentina/Buenos_Aires'
   })
   
-  // Sitio de demostración: el pedido le llega a David.dev, no a una imprenta real
+  // Sitio de demostración: el pedido le llega a laruzo-dev, no a una imprenta real
   let message = `🎨 *NUEVO PEDIDO - D-Print Digital (demo)*\n`
-  message += `_Pedido de prueba enviado desde la demo de David.dev_\n\n`
+  message += `_Pedido de prueba enviado desde la demo de laruzo-dev_\n\n`
   message += `👤 *Cliente:* ${orderData.cliente}\n`
   message += `📞 *Teléfono:* ${orderData.telefono}\n`
   if (orderData.email) {

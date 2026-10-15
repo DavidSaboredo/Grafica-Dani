@@ -25,7 +25,7 @@ export default async function Home() {
       productos={productos}
       categorias={categorias}
       error={error}
-      whatsappUrl={linkWhatsapp('¡Hola! Vengo de la demo de D-Print Digital (David.dev) y quiero hacer una consulta.')}
+      whatsappUrl={linkWhatsapp('¡Hola! Vengo de la demo de D-Print Digital (laruzo-dev) y quiero hacer una consulta.')}
     />
   )
 }

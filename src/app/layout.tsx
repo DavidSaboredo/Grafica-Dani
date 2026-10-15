@@ -31,7 +31,7 @@ export default function RootLayout({
         <div className="demo-franja" role="note">
           Sitio de demostración hecho por{' '}
           <a href="https://david-dev-ar.vercel.app/#demos" target="_blank" rel="noopener">
-            David.dev
+            laruzo-dev
           </a>
         </div>
 
@@ -60,7 +60,7 @@ export default function RootLayout({
         {/* Footer profesional */}
         <footer className="footer-professional">
           <div className="container mx-auto px-6 py-8 text-center">
-            <p className="text-gradient font-semibold">© {new Date().getFullYear()} D-Print Digital · Diseñado y desarrollado por David Saboredo</p>
+            <p className="text-gradient font-semibold">© {new Date().getFullYear()} D-Print Digital · Diseñado y desarrollado por laruzo-dev</p>
           </div>
         </footer>
       </body>
