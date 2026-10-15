@@ -2,7 +2,7 @@
 
 **Tienda online para gráficas e imprentas: el catálogo se carga desde un panel pensado para el celular y los pedidos llegan listos por WhatsApp.**
 
-> Sitio de demostración del portfolio de [laruzo-dev](https://david-dev-ar.vercel.app/#demos). D-Print Digital es una imprenta ficticia: los productos y precios son de ejemplo.
+> Sitio de demostración del portfolio de [laruzo-dev](https://laruzo-dev.vercel.app/#demos). D-Print Digital es una imprenta ficticia: los productos y precios son de ejemplo.
 
 ![Vista previa de D-Print Digital](docs/preview.jpg)
 
@@ -55,4 +55,4 @@ En Vercel, `npm run build` aplica las migraciones (`prisma migrate deploy`), car
 
 ## ¿Querés una web así para tu negocio?
 
-Desarrollo webs y sistemas a medida para comercios y emprendimientos. Mirá más demos en [david-dev-ar.vercel.app](https://david-dev-ar.vercel.app/#demos) o mis proyectos en [github.com/DavidSaboredo](https://github.com/DavidSaboredo).
+Desarrollo webs y sistemas a medida para comercios y emprendimientos. Mirá más demos en [laruzo-dev.vercel.app](https://laruzo-dev.vercel.app/#demos) o mis proyectos en [github.com/DavidSaboredo](https://github.com/DavidSaboredo).

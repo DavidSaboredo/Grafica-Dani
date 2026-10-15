@@ -30,7 +30,7 @@ export default function RootLayout({
         {/* Este sitio es una demo del portfolio: se aclara arriba de todo */}
         <div className="demo-franja" role="note">
           Sitio de demostración hecho por{' '}
-          <a href="https://david-dev-ar.vercel.app/#demos" target="_blank" rel="noopener">
+          <a href="https://laruzo-dev.vercel.app/#demos" target="_blank" rel="noopener">
             laruzo-dev
           </a>
         </div>
