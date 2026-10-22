@@ -1,30 +1,66 @@
-# 🎨 D-Print Digital
+<div align="center">
 
-**Tienda online para gráficas e imprentas: el catálogo se carga desde un panel pensado para el celular y los pedidos llegan listos por WhatsApp.**
+# D-Print Digital
 
-> Sitio de demostración del portfolio de [laruzo-dev](https://laruzo-dev.vercel.app/#demos). D-Print Digital es una imprenta ficticia: los productos y precios son de ejemplo.
+**Tienda online para gráficas e imprentas: el catálogo se edita desde el celular y los pedidos llegan listos por WhatsApp.**
 
-![Vista previa de D-Print Digital](docs/preview.jpg)
+[![Ver en vivo](https://img.shields.io/badge/Ver_en_vivo-1d4fc4?style=for-the-badge&logo=vercel&logoColor=white)](https://grafica-dani.vercel.app)
+<br>
+![Next.js](https://img.shields.io/badge/Next.js-0c1730?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-0c1730?style=for-the-badge&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-0c1730?style=for-the-badge&logo=typescript&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-0c1730?style=for-the-badge&logo=prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-0c1730?style=for-the-badge&logo=postgresql&logoColor=white)
 
-🔗 [Ver en vivo](https://grafica-dani.vercel.app)
+<br>
 
-## ¿Qué problema resuelve?
+<img src="docs/portada.jpg" alt="Catálogo de D-Print Digital con buscador, categorías de productos de impresión y productos destacados" width="100%">
 
-Mandar listas de precios por chat o pedirle a un programador cada vez que cambia un precio es lento y lleno de errores. Con D-Print Digital la imprenta carga y edita sus productos desde el celular (con foto sacada en el momento) y la tienda se actualiza al instante. El cliente arma su pedido y lo envía listo por WhatsApp; los trabajos sin precio fijo se marcan "a cotizar".
+</div>
+
+> [!NOTE]
+> Proyecto demo con datos de ejemplo de "D-Print Digital" (negocio ficticio).
+
+## Qué resuelve
+
+Mandar listas de precios por chat o pedirle a un programador cada vez que cambia un precio es lento y propenso a errores. Con D-Print Digital la imprenta carga y edita sus productos desde el celular, con la foto sacada en el momento, y la tienda se actualiza al instante. El cliente arma su pedido y lo envía listo por WhatsApp; los trabajos sin precio fijo quedan marcados como "a cotizar".
 
 ## Funcionalidades
 
-- Catálogo con categorías, buscador y productos destacados.
-- Precio opcional: los productos sin precio muestran "Consultá precio" y en el pedido van "a cotizar".
-- Carrito y formulario de pedido que arma el mensaje de WhatsApp (el servidor vuelve a leer nombres y precios de la base).
-- Panel `/admin` con usuario y contraseña: alta, edición, borrado, ocultar/mostrar y fotos que se achican en el celular antes de subirse.
-- Diseño adaptable a celular y escritorio, vista previa para compartir en WhatsApp y redes.
+- **Panel de administración**: alta, edición y borrado de productos, y botón para ocultarlos o mostrarlos, con usuario y contraseña.
+- **Fotos desde el celular**: las imágenes se achican en el teléfono antes de subirse, para que la carga sea rápida.
+- **Catálogo con categorías y buscador**, con productos destacados.
+- **Precio opcional**: los productos sin precio muestran "Consultá precio" y en el pedido van como "a cotizar".
+- **Carrito y formulario de pedido**: arma el mensaje de WhatsApp; el servidor vuelve a leer nombres y precios de la base de datos.
+- **Adaptable a celular y computadora**, con vista previa para compartir en WhatsApp y redes.
+
+## Capturas
+
+<table>
+  <tr>
+    <td width="70%"><img src="docs/portada.jpg" alt="Catálogo de D-Print Digital en la computadora"></td>
+    <td width="30%"><img src="docs/celular.jpg" alt="Catálogo de D-Print Digital en el celular"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>En la computadora</sub></td>
+    <td align="center"><sub>En el celular</sub></td>
+  </tr>
+</table>
 
 ## Tecnologías
 
-Next.js 15 (App Router), React, TypeScript, Prisma + Postgres (Prisma Postgres), Vercel Blob para las fotos y CSS propio. Desplegado en Vercel.
+| Parte | Tecnología |
+| --- | --- |
+| Interfaz y servidor | Next.js 15 (App Router), React y TypeScript |
+| Base de datos | PostgreSQL con Prisma (Prisma Postgres) |
+| Fotos | Vercel Blob |
+| Estilos | CSS propio |
+| Publicación | Vercel |
 
-## Cómo correrlo localmente
+## Para desarrolladores
+
+<details>
+<summary><b>Cómo correrlo en tu compu</b></summary>
 
 ```bash
 npm install
@@ -37,7 +73,10 @@ npm run dev
 
 Se abre en http://localhost:3000 y el panel en http://localhost:3000/admin.
 
-## Variables de entorno
+</details>
+
+<details>
+<summary><b>Variables de entorno</b></summary>
 
 | Variable | Para qué sirve |
 | --- | --- |
@@ -49,10 +88,21 @@ Se abre en http://localhost:3000 y el panel en http://localhost:3000/admin.
 | `AUTH_SECRET` | Clave para firmar la sesión (mínimo 32 caracteres, por ejemplo `openssl rand -base64 48`). |
 | `WHATSAPP_NUMBER` | Opcional. WhatsApp que recibe los pedidos (solo números, con código de país). |
 
-## Cómo se publica
+</details>
+
+<details>
+<summary><b>Cómo se publica</b></summary>
 
 En Vercel, `npm run build` aplica las migraciones (`prisma migrate deploy`), carga el catálogo de ejemplo si la tabla está vacía (`prisma db seed`) y después compila el sitio. `prisma generate` corre solo al instalar dependencias.
 
-## ¿Querés una web así para tu negocio?
+</details>
 
-Desarrollo webs y sistemas a medida para comercios y emprendimientos. Mirá más demos en [laruzo-dev.vercel.app](https://laruzo-dev.vercel.app/#demos) o mis proyectos en [github.com/DavidSaboredo](https://github.com/DavidSaboredo).
+---
+
+<div align="center">
+
+Diseñado y desarrollado por **[laruzo-dev](https://laruzo-dev-ar.vercel.app)**
+<br>
+<sub>¿Querés un sistema así para tu negocio? <a href="https://laruzo-dev-ar.vercel.app/#contacto">Hablemos</a>.</sub>
+
+</div>
